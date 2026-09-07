@@ -36,10 +36,10 @@
   padding: 0 !important;
 }
 
-/* Card image area */
+/* Card image area — compact for 4-col layout */
 .gift-card-image {
   position: relative;
-  height: 210px;
+  height: 190px;
   overflow: hidden;
 }
 
@@ -105,38 +105,48 @@
 /* Wishlist button on image */
 .card-wishlist-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   box-shadow: 0 2px 8px rgba(59, 30, 84, 0.15);
-  transition: transform var(--cc-duration), background var(--cc-duration);
+  transition: transform var(--cc-duration) var(--cc-ease),
+              background var(--cc-duration) var(--cc-ease),
+              box-shadow var(--cc-duration) var(--cc-ease);
   z-index: 2;
+  line-height: 1;
 }
 
 .card-wishlist-btn:hover {
-  transform: scale(1.12);
+  transform: scale(1.15);
   background: white;
+  box-shadow: 0 4px 14px rgba(59, 30, 84, 0.2);
 }
 
-/* Card body */
+.card-wishlist-btn.wishlisted {
+  background: rgba(239, 182, 200, 0.15);
+}
+
+/* Card body — tighter for 4-col */
 .gift-card-content {
-  padding: 18px 20px 20px;
+  padding: 14px 16px 18px;
 }
 
-.gift-card-name.ant-typography {
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  color: var(--cc-text-dark) !important;
-  margin-bottom: 0 !important;
+.gift-card-name {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--cc-text-dark);
+  line-height: 1.35;
+  margin-bottom: 0;
 }
 
 /* Price / size row */
@@ -148,7 +158,7 @@
 }
 
 .gift-card-price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: var(--cc-primary);
   line-height: 1;
@@ -198,42 +208,75 @@
   font-weight: 600 !important;
 }
 
-/* View Details button */
-.gift-card-view-btn.ant-btn {
-  width: 100% !important;
-  height: 42px !important;
+/* ── Primary action row: Cart + View ── */
+.gift-card-actions-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Add to Cart button */
+.gift-card-cart-btn.ant-btn {
+  flex: 1 !important;
+  height: 38px !important;
   background: var(--cc-grad-primary) !important;
   border: none !important;
   border-radius: var(--cc-radius-sm) !important;
   color: #fff !important;
   font-family: var(--cc-font-ui) !important;
-  font-size: 13.5px !important;
+  font-size: 12.5px !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 14px rgba(59, 30, 84, 0.28) !important;
+  box-shadow: 0 3px 12px rgba(59, 30, 84, 0.28) !important;
   transition: filter var(--cc-duration),
               transform var(--cc-duration),
               box-shadow var(--cc-duration) !important;
+  white-space: nowrap;
+}
+
+.gift-card-cart-btn.ant-btn:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 18px rgba(59, 30, 84, 0.38) !important;
+}
+
+/* In-cart state */
+.gift-card-cart-btn.in-cart.ant-btn {
+  background: rgba(59, 30, 84, 0.1) !important;
+  color: var(--cc-primary) !important;
+  box-shadow: none !important;
+  border: 1.5px solid rgba(59, 30, 84, 0.3) !important;
+}
+
+/* View Details button */
+.gift-card-view-btn.ant-btn {
+  flex-shrink: 0;
+  height: 38px !important;
+  width: 64px !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(59, 30, 84, 0.25) !important;
+  border-radius: var(--cc-radius-sm) !important;
+  color: var(--cc-primary) !important;
+  font-family: var(--cc-font-ui) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  transition: background var(--cc-duration),
+              border-color var(--cc-duration) !important;
 }
 
 .gift-card-view-btn.ant-btn:hover {
-  filter: brightness(1.08) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 6px 20px rgba(59, 30, 84, 0.38) !important;
+  background: rgba(59, 30, 84, 0.06) !important;
+  border-color: var(--cc-primary) !important;
 }
 
 /* Admin action buttons */
-.gift-card-actions {
+.gift-card-admin-actions {
   display: flex;
   gap: 8px;
   margin-top: 8px;
 }
 
-.gift-card-actions .ant-btn {
+.gift-card-admin-actions .ant-btn {
   flex: 1 !important;
-  height: 36px !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  border-radius: var(--cc-radius-sm) !important;
   font-family: var(--cc-font-ui) !important;
 }
 

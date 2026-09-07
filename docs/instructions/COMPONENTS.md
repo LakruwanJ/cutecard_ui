@@ -69,16 +69,26 @@ Simple data holder — defines `cardData[]` array and renders `<Card cards={card
 **CSS**: `src/styles/cards.css`
 
 Renders a responsive grid of gift cards using Ant Design `Row/Col`.
+Connected to `ShopContext` for cart & wishlist.
 
 **Props**:
-| Prop               | Type        | Default | Description                          |
-|--------------------|-------------|---------|--------------------------------------|
-| `cards`            | `GiftCard[]`| —       | Array of card objects to display     |
-| `showAdminActions` | `boolean`   | `false` | Shows Delete/Edit buttons (admin use)|
+| Prop               | Type        | Default | Description                                    |
+|--------------------|-------------|---------|------------------------------------------------|
+| `cards`            | `GiftCard[]`| —       | Array of card objects to display               |
+| `showAdminActions` | `boolean`   | `false` | Shows Delete/Edit buttons (admin view only)    |
+| `colsDesktop`      | `number`    | `4`     | Desktop columns (4=span 6, 3=span 8, 2=span12)|
 
-**GiftCard shape**:
+**Responsive grid** (Ant Design Col breakpoints):
+| Viewport     | Columns | `Col` span |
+|--------------|---------|------------|
+| xs (<576px)  | 1       | 24         |
+| sm (≥576px)  | 2       | 12         |
+| md (≥768px)  | 2       | 12         |
+| lg (≥992px)  | 4       | 6          |
+
+**GiftCard interface** (exported for reuse):
 ```ts
-interface GiftCard {
+export interface GiftCard {
   id: string;
   name: string;
   details: { [key: string]: string };
@@ -88,6 +98,12 @@ interface GiftCard {
   gifUrl?: string;
 }
 ```
+
+**Per-card actions**:
+- **Wishlist** — heart icon (top-right of image). Toggles. Filled heart = wishlisted.
+- **Add to Cart** — primary gradient button. Shows "In Cart" muted state when already added.
+- **View** — secondary outline button. Navigates to `/cards/:id`.
+
 
 ---
 
@@ -103,7 +119,31 @@ Dark gradient footer with 4 Ant Design `Col` columns:
 
 ---
 
-### `AnimationOne` (Function)
+### `ShopContext` + `useShop()`
+**File**: `src/Function/ShopContext.tsx`
+
+Global cart and wishlist state using React Context. Wrapped around `<App />` in `main.tsx`.
+
+```tsx
+// Access in any component:
+const { addToCart, toggleWishlist, cartCount, isWishlisted } = useShop();
+```
+
+**Context value**:
+| Property         | Type              | Description                        |
+|------------------|-------------------|------------------------------------|
+| `cart`           | `CartItem[]`      | Current cart items                 |
+| `wishlist`       | `WishlistItem[]`  | Current wishlist items             |
+| `cartCount`      | `number`          | Total item quantity in cart        |
+| `wishlistCount`  | `number`          | Number of wishlisted items         |
+| `addToCart`      | `(item) => void`  | Add or increment item in cart      |
+| `removeFromCart` | `(id) => void`    | Remove item from cart              |
+| `toggleWishlist` | `(item) => void`  | Add or remove from wishlist        |
+| `isInCart`       | `(id) => boolean` | Check if item is already in cart   |
+| `isWishlisted`   | `(id) => boolean` | Check if item is in wishlist       |
+
+---
+
 **File**: `src/Function/AnimationOne.tsx`
 
 Scroll-triggered entrance animation using Framer Motion `useInView`.  

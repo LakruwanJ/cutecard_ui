@@ -47,8 +47,23 @@ ul, ol {
   background-image: url("../Images/Wave.svg");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: contain;
+  background-size: 100% auto;   /* fills full width, height scales naturally */
   background-attachment: scroll;
+}
+
+/* Mobile: let the wave scale to cover the viewport width properly */
+@media (max-width: 768px) {
+  .background-wrapper {
+    background-size: 200% auto;   /* wider crop so waves are visible on narrow screens */
+    background-position: center top;
+  }
+}
+
+@media (max-width: 480px) {
+  .background-wrapper {
+    background-size: 280% auto;
+    background-position: 40% top;
+  }
 }
 
 /* Utility: section container */

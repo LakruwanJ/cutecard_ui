@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Button, Typography } from "antd";
+import { Badge, Button, Tooltip, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
+import { useShop } from "../Function/ShopContext";
 import "../styles/navbar.css";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
+  const { cartCount, wishlistCount } = useShop();
 
   const isActive = (path: string) => (pathname === path ? "active" : "");
   const close = () => setIsOpen(false);
@@ -20,9 +22,9 @@ export default function Navbar() {
             <div className="navbar-brand-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <path
-                  d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.314 3.87 1 6.498 1
-                     8.533 1 10.515 2.395 12 4c1.485-1.605 3.467-3 5.502-3
-                     C20.13 1 23 3.314 23 7.19c0 4.105-5.37 8.863-11 14.402z"
+                  d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.314 3.87 1
+                     6.498 1 8.533 1 10.515 2.395 12 4c1.485-1.605 3.467-3
+                     5.502-3C20.13 1 23 3.314 23 7.19c0 4.105-5.37 8.863-11 14.402z"
                   fill="white"
                 />
               </svg>
@@ -62,29 +64,50 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* ── Action buttons ── */}
+          {/* ── Action icons ── */}
           <div className="navbar-action">
-            {/* Cart icon */}
-            <button className="navbar-cart-btn" aria-label="View cart">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <path d="M16 10a4 4 0 0 1-8 0"/>
-              </svg>
-              <span className="navbar-cart-badge">0</span>
-            </button>
 
-            {/* Contact Us — Ant Design Button */}
-            <Button
-              type="primary"
-              className="navbar-contact-btn"
-              onClick={close}
-            >
-              Contact Us
-            </Button>
+            {/* Wishlist */}
+            <Tooltip title="Wishlist">
+              <Link to="/wishlist" className="navbar-icon-btn" aria-label="View wishlist" onClick={close}>
+                <Badge
+                  count={wishlistCount}
+                  size="small"
+                  color="var(--cc-accent)"
+                  style={{ color: "var(--cc-primary)" }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill={wishlistCount > 0 ? "var(--cc-accent)" : "none"}
+                    stroke="var(--cc-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.314 3.87 1
+                             6.498 1 8.533 1 10.515 2.395 12 4c1.485-1.605 3.467-3
+                             5.502-3C20.13 1 23 3.314 23 7.19c0 4.105-5.37 8.863-11 14.402z"/>
+                  </svg>
+                </Badge>
+              </Link>
+            </Tooltip>
+
+            {/* Cart */}
+            <Tooltip title="Cart">
+              <Link to="/cart" className="navbar-icon-btn" aria-label="View cart" onClick={close}>
+                <Badge count={cartCount} size="small" color="var(--cc-primary)">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--cc-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                  </svg>
+                </Badge>
+              </Link>
+            </Tooltip>
+
+            {/* Contact Us */}
+            <Link to="/contact" onClick={close}>
+              <Button type="primary" className="navbar-contact-btn">
+                Contact Us
+              </Button>
+            </Link>
+
           </div>
-
         </nav>
       </div>
     </header>
