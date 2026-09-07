@@ -1,0 +1,288 @@
+/* ===================================================
+   navbar.css  —  Navbar & Mobile Menu
+   CuteCard
+   =================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: var(--cc-navbar-height);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 24px rgba(59, 30, 84, 0.07);
+  transition: background var(--cc-duration) var(--cc-ease),
+              box-shadow  var(--cc-duration) var(--cc-ease);
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: var(--cc-max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 16px;
+}
+
+/* ── Brand ── */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.navbar-brand-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cc-grad-primary);
+  border-radius: 11px;
+  box-shadow: 0 4px 14px rgba(59, 30, 84, 0.35);
+  flex-shrink: 0;
+}
+
+.navbar-brand-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 3px;
+}
+
+.navbar-brand-name {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--cc-primary) !important;
+  letter-spacing: -0.4px;
+  line-height: 1;
+}
+
+.navbar-brand-sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--cc-primary-soft) !important;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* ── Nav Links ── */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  display: flex;
+}
+
+.navbar-links a {
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+  color: var(--cc-text-mid);
+  font-size: 14.5px;
+  font-weight: 500;
+  border-radius: var(--cc-radius-pill);
+  transition: color var(--cc-duration) var(--cc-ease),
+              background var(--cc-duration) var(--cc-ease);
+  white-space: nowrap;
+}
+
+.navbar-links a:hover {
+  color: var(--cc-primary);
+  background: rgba(59, 30, 84, 0.07);
+}
+
+.navbar-links a.active {
+  color: var(--cc-primary);
+  background: rgba(59, 30, 84, 0.09);
+  font-weight: 600;
+}
+
+/* ── Actions (right side) ── */
+.navbar-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Cart icon button */
+.navbar-cart-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 30, 84, 0.07);
+  border: none;
+  border-radius: 11px;
+  color: var(--cc-primary);
+  cursor: pointer;
+  transition: background var(--cc-duration) var(--cc-ease),
+              transform  var(--cc-duration) var(--cc-ease);
+}
+
+.navbar-cart-btn:hover {
+  background: rgba(59, 30, 84, 0.13);
+  transform: scale(1.06);
+}
+
+.navbar-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--cc-accent);
+  color: var(--cc-primary);
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: var(--cc-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Contact Us button — Ant Design override */
+.navbar-contact-btn.ant-btn {
+  height: 40px !important;
+  padding: 0 22px !important;
+  border: none !important;
+  border-radius: var(--cc-radius-pill) !important;
+  background: var(--cc-grad-primary) !important;
+  color: #fff !important;
+  font-family: var(--cc-font-ui) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(59, 30, 84, 0.32) !important;
+  transition: transform var(--cc-duration) var(--cc-ease),
+              box-shadow var(--cc-duration) var(--cc-ease) !important;
+}
+
+.navbar-contact-btn.ant-btn:hover,
+.navbar-contact-btn.ant-btn:focus {
+  background: var(--cc-grad-primary) !important;
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 22px rgba(59, 30, 84, 0.42) !important;
+}
+
+/* ── Mobile Menu Button ── */
+.mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 10px;
+  transition: background var(--cc-duration);
+}
+
+.mobile-menu-button:hover {
+  background: rgba(59, 30, 84, 0.07);
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--cc-primary);
+  border-radius: 4px;
+  transition: transform 0.3s var(--cc-ease), opacity 0.3s var(--cc-ease);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .navbar-links a {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: var(--cc-navbar-height);
+    left: 0;
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 12px 16px 20px;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(59, 30, 84, 0.08);
+    box-shadow: 0 8px 24px rgba(59, 30, 84, 0.1);
+  }
+
+  .navbar-links-open {
+    display: flex;
+  }
+
+  .navbar-links li {
+    display: block;
+  }
+
+  .navbar-links a {
+    justify-content: center;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .navbar-action {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .navbar-brand-text .navbar-brand-sub {
+    display: none;
+  }
+
+  .navbar-contact-btn {
+    display: none;
+  }
+}

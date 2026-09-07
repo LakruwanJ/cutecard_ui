@@ -1,0 +1,127 @@
+<svg viewBox="0 0 500 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background glow circles -->
+  <circle cx="250" cy="210" r="190" fill="url(#bgGlow)" opacity="0.35"/>
+
+  <!-- Main card back (tilted slightly left) -->
+  <g transform="rotate(-8, 250, 210) translate(-40, 10)">
+    <rect x="90" y="70" width="220" height="160" rx="14" fill="url(#cardGrad1)" opacity="0.85"/>
+    <rect x="90" y="70" width="220" height="160" rx="14" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+    <!-- Decorative lines -->
+    <rect x="110" y="90" width="80" height="6" rx="3" fill="rgba(255,255,255,0.35)"/>
+    <rect x="110" y="104" width="55" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+    <!-- Flower deco -->
+    <circle cx="265" cy="150" r="28" fill="rgba(255,255,255,0.12)"/>
+    <circle cx="265" cy="150" r="16" fill="rgba(255,255,255,0.18)"/>
+    <!-- Stars scatter -->
+    <circle cx="130" cy="200" r="3" fill="rgba(255,255,255,0.4)"/>
+    <circle cx="280" cy="100" r="2.5" fill="rgba(255,255,255,0.45)"/>
+  </g>
+
+  <!-- Main card front (center) -->
+  <rect x="120" y="90" width="240" height="170" rx="16" fill="url(#cardGrad2)"/>
+  <rect x="120" y="90" width="240" height="170" rx="16" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
+  <!-- Ribbon on card -->
+  <path d="M120 90 Q240 140 360 90" stroke="url(#ribbonGrad)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <!-- Heart pattern watercolor blobs -->
+  <ellipse cx="200" cy="165" rx="42" ry="32" fill="rgba(239,182,200,0.22)"/>
+  <ellipse cx="275" cy="185" rx="30" ry="22" fill="rgba(168,136,181,0.2)"/>
+  <!-- Flower petals top-right -->
+  <circle cx="310" cy="115" r="18" fill="rgba(255,255,255,0.18)"/>
+  <circle cx="310" cy="115" r="10" fill="rgba(255,255,255,0.28)"/>
+  <circle cx="298" cy="107" r="6" fill="rgba(239,182,200,0.55)"/>
+  <circle cx="322" cy="107" r="6" fill="rgba(239,182,200,0.55)"/>
+  <circle cx="298" cy="123" r="6" fill="rgba(239,182,200,0.55)"/>
+  <circle cx="322" cy="123" r="6" fill="rgba(239,182,200,0.55)"/>
+  <!-- Center heart -->
+  <path d="M235 170 C235 164 226 157 218 163 C212 167 214 175 218 179 L235 195 L252 179 C256 175 258 167 252 163 C244 157 235 164 235 170Z" fill="rgba(239,182,200,0.7)"/>
+  <!-- Text lines on card -->
+  <rect x="148" y="220" width="90" height="7" rx="3.5" fill="rgba(255,255,255,0.5)"/>
+  <rect x="148" y="234" width="65" height="5" rx="2.5" fill="rgba(255,255,255,0.3)"/>
+  <!-- Price tag sticker -->
+  <rect x="295" y="228" width="52" height="26" rx="8" fill="rgba(59,30,84,0.7)"/>
+  <text x="321" y="246" font-family="Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle">$9.99</text>
+
+  <!-- Small card tilted right (back) -->
+  <g transform="rotate(10, 380, 180)">
+    <rect x="285" y="120" width="170" height="120" rx="12" fill="url(#cardGrad3)" opacity="0.82"/>
+    <rect x="285" y="120" width="170" height="120" rx="12" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+    <circle cx="370" cy="180" r="28" fill="rgba(255,255,255,0.12)"/>
+    <!-- Stars -->
+    <circle cx="300" cy="200" r="2.5" fill="rgba(255,255,255,0.45)"/>
+    <circle cx="440" cy="135" r="2" fill="rgba(255,255,255,0.4)"/>
+    <!-- Text lines -->
+    <rect x="300" y="214" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.35)"/>
+  </g>
+
+  <!-- Ribbon bow at top -->
+  <path d="M240 82 Q225 58 205 70 Q195 80 215 88 Q225 92 240 82Z" fill="url(#bowGrad)" opacity="0.85"/>
+  <path d="M240 82 Q255 58 275 70 Q285 80 265 88 Q255 92 240 82Z" fill="url(#bowGrad)" opacity="0.85"/>
+  <circle cx="240" cy="83" r="8" fill="url(#bowKnot)"/>
+  <!-- Bow tails -->
+  <path d="M235 90 Q220 108 208 120" stroke="url(#bowGrad)" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M245 90 Q260 108 272 120" stroke="url(#bowGrad)" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.7"/>
+
+  <!-- Floating sparkles / stars -->
+  <g opacity="0.7">
+    <!-- Star 1 -->
+    <path d="M90 140 L93 133 L96 140 L103 143 L96 146 L93 153 L90 146 L83 143 Z" fill="#EFB6C8"/>
+    <!-- Star 2 -->
+    <path d="M390 90 L392 84 L394 90 L400 92 L394 94 L392 100 L390 94 L384 92 Z" fill="#A888B5" opacity="0.8"/>
+    <!-- Star 3 small -->
+    <path d="M420 200 L421.5 196 L423 200 L427 201.5 L423 203 L421.5 207 L420 203 L416 201.5 Z" fill="#EFB6C8" opacity="0.6"/>
+    <!-- Dot scatters -->
+    <circle cx="75" cy="200" r="4" fill="#EFB6C8" opacity="0.5"/>
+    <circle cx="430" cy="150" r="5" fill="#A888B5" opacity="0.4"/>
+    <circle cx="100" cy="270" r="3" fill="#6B3FA0" opacity="0.35"/>
+    <circle cx="410" cy="280" r="3.5" fill="#EFB6C8" opacity="0.45"/>
+    <circle cx="165" cy="310" r="4" fill="#A888B5" opacity="0.4"/>
+    <circle cx="340" cy="310" r="3" fill="#EFB6C8" opacity="0.5"/>
+  </g>
+
+  <!-- Leaf sprigs -->
+  <path d="M95 260 Q110 240 130 250 Q115 265 95 260Z" fill="rgba(120,190,130,0.4)"/>
+  <path d="M380 270 Q390 250 410 255 Q400 272 380 270Z" fill="rgba(120,190,130,0.35)"/>
+  <path d="M100 250 Q115 238 125 242" stroke="rgba(100,160,110,0.5)" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M383 262 Q393 250 403 252" stroke="rgba(100,160,110,0.5)" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+  <!-- Gradient definitions -->
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EFB6C8"/>
+      <stop offset="60%" stop-color="#A888B5"/>
+      <stop offset="100%" stop-color="#3B1E54" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A888B5"/>
+      <stop offset="100%" stop-color="#3B1E54"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#fdf0f5"/>
+      <stop offset="100%" stop-color="#f5e8f8"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B3FA0"/>
+      <stop offset="100%" stop-color="#EFB6C8"/>
+    </linearGradient>
+
+    <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A888B5"/>
+      <stop offset="50%" stop-color="#EFB6C8"/>
+      <stop offset="100%" stop-color="#A888B5"/>
+    </linearGradient>
+
+    <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFB6C8"/>
+      <stop offset="100%" stop-color="#A888B5"/>
+    </linearGradient>
+
+    <radialGradient id="bowKnot" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#EFB6C8"/>
+    </radialGradient>
+  </defs>
+</svg>

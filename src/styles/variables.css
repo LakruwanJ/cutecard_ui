@@ -1,0 +1,69 @@
+/* ===================================================
+   variables.css  —  Design Tokens
+   CuteCard | All CSS custom properties live here
+   =================================================== */
+
+:root {
+  /* Brand Colors */
+  --cc-primary:        #3b1e54;
+  --cc-primary-dark:   #28103a;
+  --cc-primary-light:  #6b3fa0;
+  --cc-primary-soft:   #a888b5;
+  --cc-accent:         #efb6c8;
+  --cc-accent-warm:    #f7d4df;
+  --cc-accent-light:   #fdf0f5;
+
+  /* Text */
+  --cc-text-dark:  #1a0a2e;
+  --cc-text-mid:   #4a3060;
+  --cc-text-light: #8174a0;
+  --cc-text-muted: #b0a0c0;
+
+  /* Surfaces */
+  --cc-surface:    rgba(255, 255, 255, 0.80);
+  --cc-glass:      rgba(255, 255, 255, 0.55);
+  --cc-white:      #ffffff;
+
+  /* Shadows */
+  --cc-shadow-xs:  0 2px 8px  rgba(59, 30, 84, 0.06);
+  --cc-shadow-sm:  0 4px 16px rgba(59, 30, 84, 0.10);
+  --cc-shadow-md:  0 8px 32px rgba(59, 30, 84, 0.15);
+  --cc-shadow-lg:  0 20px 60px rgba(59, 30, 84, 0.18);
+
+  /* Border Radius */
+  --cc-radius-xs: 6px;
+  --cc-radius-sm: 12px;
+  --cc-radius-md: 18px;
+  --cc-radius-lg: 28px;
+  --cc-radius-xl: 40px;
+  --cc-radius-pill: 999px;
+
+  /* Spacing */
+  --cc-space-xs:  4px;
+  --cc-space-sm:  8px;
+  --cc-space-md:  16px;
+  --cc-space-lg:  24px;
+  --cc-space-xl:  40px;
+  --cc-space-2xl: 64px;
+  --cc-space-3xl: 100px;
+
+  /* Typography */
+  --cc-font-ui:   "Outfit", "Inter", Arial, sans-serif;
+  --cc-font-head: "Playfair Display", Georgia, serif;
+  --cc-font-mono: "Fira Code", "Courier New", monospace;
+
+  /* Transitions */
+  --cc-ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --cc-ease-out:  cubic-bezier(0, 0, 0.2, 1);
+  --cc-duration:  0.25s;
+  --cc-duration-slow: 0.4s;
+
+  /* Layout */
+  --cc-max-width:     1280px;
+  --cc-navbar-height: 76px;
+
+  /* Gradients */
+  --cc-grad-primary:  linear-gradient(135deg, var(--cc-primary) 0%, var(--cc-primary-light) 100%);
+  --cc-grad-accent:   linear-gradient(135deg, var(--cc-accent-warm) 0%, var(--cc-accent) 100%);
+  --cc-grad-hero:     linear-gradient(135deg, rgba(239,182,200,0.25) 0%, rgba(168,136,181,0.15) 100%);
+}

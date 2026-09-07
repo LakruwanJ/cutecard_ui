@@ -1,97 +1,129 @@
-import { Button, Card as AntCard, Tag } from "antd";
+import { Button, Card as AntCard, Col, Row, Tag, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+import "../styles/cards.css";
 
-interface CardProps {
-  cards: {
-    id: string;
-    name: string;
-    details: { [key: string]: string };
-    size: number;
-    price: number;
-    tags: string[];
-    gifUrl?: string;
-  }[];
+const { Text } = Typography;
+
+interface GiftCard {
+  id: string;
+  name: string;
+  details: { [key: string]: string };
+  size: number;
+  price: number;
+  tags: string[];
+  gifUrl?: string;
 }
 
-export default function Card({ cards }: CardProps) {
+interface CardProps {
+  cards: GiftCard[];
+  showAdminActions?: boolean;
+}
+
+function tagClass(tag: string): string {
+  if (tag === "Best Seller" || tag === "Limited Edition") return "card-badge card-badge-bestseller";
+  if (tag === "New Arrival") return "card-badge card-badge-new";
+  if (tag === "Eco-Friendly") return "card-badge card-badge-eco";
+  return "card-badge card-badge-new";
+}
+
+export default function Card({ cards, showAdminActions = false }: CardProps) {
   const navigate = useNavigate();
 
-  const cardId = "123";
-
   return (
-    <div className="cards-grid">
-      {cards.map((card) => (
-        <AntCard
-          key={card.id}
-          className="gift-card"
-          styles={{ body: { padding: 0 } }}
-        >
-          <div className="gift-card-image">
-            {card.gifUrl ? (
-              <img
-                src={card.gifUrl}
-                alt={card.name}
-              />
-            ) : (
-              <p>No GIF available</p>
-            )}
-          </div>
-
-          <div className="gift-card-content">
-            <h3>{card.name}</h3>
-
-            <p className="gift-card-price">
-              Size: {card.size} | Price: ${card.price.toFixed(2)}
-            </p>
-
-            <ul>
-              {Object.entries(card.details).map(([key, value]) => (
-                <li key={key}>
-                  <strong>{key}:</strong> {value}
-                </li>
-              ))}
-            </ul>
-
-            <div className="gift-card-tags">
-              {card.tags.map((tag, index) => (
-                <Tag key={index} className="gift-tag">
-                  {tag}
-                </Tag>
-              ))}
-            </div>
-
-            <Button
-              type="primary"
-              block
-              className="gift-card-button"
-              onClick={() => navigate(`/editCard/${cardId}`)}
+    <div className="cards-page">
+      <Row gutter={[24, 24]}>
+        {cards.map((card) => (
+          <Col key={card.id} xs={24} sm={12} lg={8}>
+            <AntCard
+              className="gift-card"
+              styles={{ body: { padding: 0 } }}
             >
-              View
-            </Button>
+                {/* ── Image ── */}
+                <div className="gift-card-image">
+                  {card.gifUrl ? (
+                    <img src={card.gifUrl} alt={card.name} loading="lazy" />
+                  ) : (
+                    <div className="gift-card-image-placeholder">
+                      🎁 Preview coming soon
+                    </div>
+                  )}
 
-            <div className="gift-card-actions">
-              <Button
-                type="primary"
-                block
-                className="gift-card-button"
-              >
-                Delete
-              </Button>
+                  {/* Tag badges overlay */}
+                  {card.tags.length > 0 && (
+                    <div className="card-badge-overlay">
+                      {card.tags.map((tag, i) => (
+                        <span key={i} className={tagClass(tag)}>{tag}</span>
+                      ))}
+                    </div>
+                  )}
 
-              <Button
-                type="primary"
-                block
-                className="gift-card-button"
-                onClick={() =>
-                  navigate(`/Admin/editCard/${cardId}`)
-                }
-              >
-                Edit
-              </Button>
-            </div>
-          </div>
-        </AntCard>
-      ))}
+                  {/* Wishlist */}
+                  <button className="card-wishlist-btn" aria-label="Add to wishlist">
+                    🤍
+                  </button>
+                </div>
+
+                {/* ── Content ── */}
+                <div className="gift-card-content">
+                  <Text strong className="gift-card-name ant-typography">
+                    {card.name}
+                  </Text>
+
+                  {/* Price / size row */}
+                  <div className="gift-card-meta">
+                    <span className="gift-card-price">${card.price.toFixed(2)}</span>
+                    <span className="gift-card-size">Size: {card.size}cm</span>
+                  </div>
+
+                  {/* Detail chips */}
+                  <div className="gift-card-details">
+                    {Object.entries(card.details).map(([key, value]) => (
+                      <span key={key} className="gift-card-chip">
+                        {key}: {value}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Ant Design Tags */}
+                  <div className="gift-card-tags">
+                    {card.tags.map((tag, i) => (
+                      <Tag key={i} className="gift-tag">{tag}</Tag>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Button
+                    type="primary"
+                    block
+                    className="gift-card-view-btn"
+                    onClick={() => navigate(`/cards/${card.id}`)}
+                  >
+                    View Details
+                  </Button>
+
+                  {/* Admin actions */}
+                  {showAdminActions && (
+                    <div className="gift-card-actions">
+                      <Button
+                        danger
+                        block
+                        onClick={() => navigate(`/admin/cards/${card.id}/delete`)}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        block
+                        onClick={() => navigate(`/admin/cards/${card.id}/edit`)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  )}
+                </div>
+            </AntCard>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 }
