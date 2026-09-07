@@ -49,6 +49,20 @@ npm run dev
 
 ---
 
+## State Management
+
+| Context         | File                          | Purpose                              |
+|-----------------|-------------------------------|--------------------------------------|
+| `ShopContext`   | `src/Function/ShopContext.tsx`| Global cart + wishlist state         |
+
+- **`useShop()`** — hook to access cart/wishlist from any component
+- **Cart**: `addToCart`, `removeFromCart`, `isInCart`, `cartCount`
+- **Wishlist**: `toggleWishlist`, `isWishlisted`, `wishlistCount`
+- Wrapped around `<App />` in `main.tsx` via `<ShopProvider>`
+- Uses Ant Design `message` for toast feedback on add/remove
+
+---
+
 ## Environment Notes
 
 - **No `.env` file** yet — add API keys here when backend is connected.
@@ -60,13 +74,22 @@ npm run dev
 ## Folder Conventions
 
 ```
-src/components/   → React components (PascalCase filenames)
-src/styles/       → CSS modules (one file per concern)
-src/Function/     → Utility/helper components (animations, hooks)
-src/Images/       → Static SVGs and images imported into components
-src/data/         → Static data arrays, types (future: API types)
-docs/instructions/→ Developer documentation
+src/components/       → React components (PascalCase filenames)
+src/styles/           → CSS modules (one file per concern)
+src/Function/         → Utility components, animations, contexts
+  └── AnimationOne.tsx   Scroll-triggered fade-in
+  └── ShopContext.tsx    Cart & wishlist global state
+src/Images/           → Static SVGs and images
+  └── Wave.svg           DO NOT modify — top background animation
+  └── HeroIllustration.svg  Hero section SVG art (hidden on mobile)
+src/data/             → Static data arrays, types (future: API types)
+docs/instructions/    → Developer documentation
 ```
+
+### Mobile Behaviour
+- **Wave.svg** background uses `background-size: 100% auto` on desktop, scales wider on mobile.
+- **Hero illustration** is hidden at `≤768px` — the wave background acts as the visual header.
+- **Cards grid**: 1 col (mobile) → 2 col (tablet) → 4 col (desktop).
 
 ---
 

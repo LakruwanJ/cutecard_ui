@@ -130,8 +130,9 @@
   flex-shrink: 0;
 }
 
-/* Cart icon button */
-.navbar-cart-btn {
+/* Cart / Wishlist icon button (link wrapper) */
+.navbar-cart-btn,
+.navbar-icon-btn {
   position: relative;
   width: 40px;
   height: 40px;
@@ -145,30 +146,15 @@
   cursor: pointer;
   transition: background var(--cc-duration) var(--cc-ease),
               transform  var(--cc-duration) var(--cc-ease);
+  text-decoration: none;
 }
 
-.navbar-cart-btn:hover {
+.navbar-cart-btn:hover,
+.navbar-icon-btn:hover {
   background: rgba(59, 30, 84, 0.13);
   transform: scale(1.06);
 }
 
-.navbar-cart-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  background: var(--cc-accent);
-  color: var(--cc-primary);
-  font-size: 10px;
-  font-weight: 800;
-  border-radius: var(--cc-radius-pill);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid white;
-}
 
 /* Contact Us button — Ant Design override */
 .navbar-contact-btn.ant-btn {

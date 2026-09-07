@@ -547,17 +547,18 @@
     min-height: auto;
   }
 
+  /* On tablet the illustration can still show but smaller */
   .hero-right {
     order: -1;
   }
 
   .hero-svg-wrapper {
-    max-width: 380px;
+    max-width: 320px;
     margin: 0 auto;
   }
 
   .hero-title.ant-typography {
-    font-size: 48px !important;
+    font-size: 46px !important;
     text-align: center;
   }
 
@@ -590,15 +591,40 @@
   }
 
   .hero-section {
-    padding: 32px 0 40px;
+    padding: 24px 0 36px;
+  }
+
+  /* ── Hide illustration on mobile — wave bg is the visual ── */
+  .hero-right {
+    display: none;
+  }
+
+  /* Hero becomes single-column, centred, compact */
+  .hero-row {
+    flex-direction: column;
+    gap: 0;
+    min-height: auto;
+  }
+
+  .hero-left {
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 
   .hero-title.ant-typography {
-    font-size: 38px !important;
+    font-size: 36px !important;
   }
 
   .hero-desc.ant-typography {
     font-size: 15px !important;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    gap: 20px;
   }
 
   .hero-float-tag {
