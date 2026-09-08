@@ -3,10 +3,11 @@
 ## Component Principles
 
 1. **One CSS file per component** — import it at the top of the component file.
-2. **Ant Design first** — use `Button`, `Typography`, `Row/Col`, `Tag`, `Card`, `Divider`, `Space` before writing custom HTML elements.
+2. **Ant Design first** — use `Button`, `Typography`, `Row/Col`, `Tag`, `Card`, `Divider`, `Space`, `Modal`, `Form`, `Select` before writing custom HTML elements.
 3. **Props over inline styles** — use CSS classes and variables, not `style={{ }}` for layout.
 4. **Mobile-responsive** — every component must work at 320px width.
 5. **Accessibility** — add `aria-label`, `role`, `alt` attributes on all interactive/image elements.
+6. **Action Gating** — actions that modify user state (Add to Cart, Wishlist, Checkout) must check authentication via `useAuth().requireAuth()`.
 
 ---
 
@@ -18,49 +19,54 @@
 
 - Fixed at top, frosted glass backdrop
 - CuteCard heart logo + brand text
-- Nav links with active route highlighting
-- Cart icon button with badge
-- **Contact Us** — Ant Design `<Button type="primary">` with gradient
-- Mobile hamburger menu (hidden below 768px)
-
-**Props**: None (reads `useLocation` internally)
-
----
-
-### `<BackgroundWrapper />`
-**File**: `src/components/BackgroundWrapper.tsx`  
-**CSS**: `src/styles/base.css` (`.background-wrapper`)
-
-Wraps page content with the top animated `Wave.svg` background.
-
-> ⚠️ **Do not modify `Wave.svg`** — it contains the animated gradient waves that define the page header aesthetic.
-
-**Props**:
-| Prop       | Type          | Required | Description               |
-|------------|---------------|----------|---------------------------|
-| `children` | `ReactNode`   | ✅       | Page content to wrap      |
+- **Order Tab Visibility**: The `Order` nav link is rendered **only** for authenticated users (`currentUser`).
+- Cart & Wishlist icon buttons with live counts.
+- **Guest State**: Displays a stylish **"Sign In"** button that opens `<AuthModal />`.
+- **Logged-in State**: Displays a circular user avatar with initial; clicking opens a dropdown with:
+  - Header with user name and handle (`@username`)
+  - "My Profile" (`/profile`)
+  - "My Orders" (`/order`)
+  - "Admin Dashboard" (`/admin`) for admin accounts
+  - "Sign Out"
+- Mobile menu with responsive links and quick auth trigger.
 
 ---
 
-### `<Home />`
-**File**: `src/components/Home.tsx`  
-**CSS**: `src/styles/home.css`
+### `<AuthModal />`
+**File**: `src/components/AuthModal.tsx`  
+**CSS**: `src/styles/authmodal.css`
 
-**Page sections (in order)**:
-1. **Hero** — SVG illustration + headline + stats + CTAs
-2. **Featured Cards** — immediately visible after hero
-3. **Categories** — emoji pill grid for browsing by occasion
-4. **Why CuteCard** — 6 feature cards (Ant Design Row/Col)
-5. **CTA Banner** — gradient banner with action buttons
+Global modal mounted in `<App />` and controlled via `AuthContext`.
+
+- **Banner / Trigger Reason**: When triggered by a guest action (e.g. clicking Add to Cart), displays a highlighted alert pill (e.g. *"Please sign in to add items to your shopping bag 🛍️"*).
+- **Tab 1: Sign In**:
+  - Username / Email and Password fields.
+  - **1-Click Demo Login Chips**: Fast testing buttons for `user` (`123q`) and `admin` (`123q`).
+  - Auto-resumes queued action (e.g., adding to cart) immediately after sign in.
+- **Tab 2: Create Account**:
+  - Full Name, Username, Email, Sri Lankan Mobile Phone, Delivery Address, District/City select, and Password with confirmation validator.
+  - Auto-logs in upon registration.
 
 ---
 
-### `<Cards />`
-**File**: `src/components/Cards.tsx`
+### `<ProfilePage />`
+**File**: `src/components/ProfilePage.tsx`  
+**CSS**: `src/styles/profilepage.css`
 
-Simple data holder — defines `cardData[]` array and renders `<Card cards={cardData} />`.
+User profile management page available at `/profile`.
 
-> When the backend is connected, replace the static array with an API call here.
+- **Access**: Registered customers only; guests see a friendly sign-in gateway.
+- **Left Column**:
+  - User avatar with initial badge
+  - Name, username handle, and role tag (`Customer` or `Administrator`)
+  - Quick summary counters (Items in bag, Saved items, Total orders)
+  - "Edit Profile" and "Sign Out" buttons
+- **Right Column**:
+  - Delivery details: Full Name, Username, Email, Phone, and Shipping Address / District.
+  - Quick navigation cards to Orders, Wishlist, Shopping Bag, and Card Catalog.
+- **Edit Modal**:
+  - Allows editing Name, Email, Phone, Delivery Address, and City.
+  - Saves changes to `localStorage` and updates application state instantly.
 
 ---
 
@@ -68,8 +74,7 @@ Simple data holder — defines `cardData[]` array and renders `<Card cards={card
 **File**: `src/components/Card.tsx`  
 **CSS**: `src/styles/cards.css`
 
-Renders a responsive grid of gift cards using Ant Design `Row/Col`.
-Connected to `ShopContext` for cart & wishlist.
+Renders responsive gift cards grid. Integrated with both `ShopContext` and `AuthContext`.
 
 **Props**:
 | Prop               | Type        | Default | Description                                    |
@@ -78,44 +83,63 @@ Connected to `ShopContext` for cart & wishlist.
 | `showAdminActions` | `boolean`   | `false` | Shows Delete/Edit buttons (admin view only)    |
 | `colsDesktop`      | `number`    | `4`     | Desktop columns (4=span 6, 3=span 8, 2=span12)|
 
-**Responsive grid** (Ant Design Col breakpoints):
-| Viewport     | Columns | `Col` span |
-|--------------|---------|------------|
-| xs (<576px)  | 1       | 24         |
-| sm (≥576px)  | 2       | 12         |
-| md (≥768px)  | 2       | 12         |
-| lg (≥992px)  | 4       | 6          |
-
-**GiftCard interface** (exported for reuse):
-```ts
-export interface GiftCard {
-  id: string;
-  name: string;
-  details: { [key: string]: string };
-  size: number;
-  price: number;
-  tags: string[];
-  gifUrl?: string;
-}
-```
-
-**Per-card actions**:
-- **Wishlist** — heart icon (top-right of image). Toggles. Filled heart = wishlisted.
-- **Add to Cart** — primary gradient button. Shows "In Cart" muted state when already added.
-- **View** — secondary outline button. Navigates to `/cards/:id`.
-
+**Action Gating**:
+- **Wishlist**: Toggling wishlist is gated by `requireAuth()`. Guests see the login modal with a reason prompt.
+- **Add to Cart**: Gated by `requireAuth()`. Guests are prompted to sign in before adding cards.
 
 ---
 
-### `<Footer />`
-**File**: `src/components/Footer.tsx`  
-**CSS**: `src/styles/footer.css`
+### `<CartPage />`
+**File**: `src/components/CartPage.tsx`  
+**CSS**: `src/styles/cartpage.css`
 
-Dark gradient footer with 4 Ant Design `Col` columns:
-- Brand description
-- Quick links
-- Contact info
-- Social media icons
+Shopping bag with promo codes, shipping progress, and checkout modal.
+
+- **Checkout Protection**: Clicking "Proceed to Checkout" requires authentication.
+- **Profile Auto-Fill**: When logged in, checkout fields (Name, Phone, Address, District) auto-fill with the user's saved profile data.
+
+---
+
+### `<OrderPage />`
+**File**: `src/components/OrderPage.tsx`  
+**CSS**: `src/styles/orderpage.css`
+
+Order tracking and invoice receipts.
+
+- **Access Restriction**: Only registered customers can view orders.
+- **Guest State**: If a guest accesses `/order` directly, a styled "Sign In to Track Orders" card is shown.
+
+---
+
+### `<WishlistPage />`
+**File**: `src/components/WishlistPage.tsx`  
+**CSS**: `src/styles/wishlist.css`
+
+Saved cards collection. "Move All to Bag" and per-item "Add to Bag" buttons are protected with `requireAuth()`.
+
+---
+
+### `AuthContext` + `useAuth()`
+**File**: `src/Function/AuthContext.tsx`
+
+Global authentication and user session state wrapped in `main.tsx`.
+
+```tsx
+import { useAuth } from "../Function/AuthContext";
+
+const {
+  currentUser,      // User | null
+  isAuthenticated,  // boolean
+  isAdmin,          // boolean
+  login,            // (username, password) => Promise<{success, message}>
+  register,         // (data) => Promise<{success, message}>
+  logout,           // () => void
+  updateProfile,    // (fields) => Promise<{success, message}>
+  requireAuth,      // (action, reason?) => boolean
+  openAuthModal,    // (tab?, reason?) => void
+  closeAuthModal,   // () => void
+} = useAuth();
+```
 
 ---
 
@@ -125,67 +149,5 @@ Dark gradient footer with 4 Ant Design `Col` columns:
 Global cart and wishlist state using React Context. Wrapped around `<App />` in `main.tsx`.
 
 ```tsx
-// Access in any component:
 const { addToCart, toggleWishlist, cartCount, isWishlisted } = useShop();
 ```
-
-**Context value**:
-| Property         | Type              | Description                        |
-|------------------|-------------------|------------------------------------|
-| `cart`           | `CartItem[]`      | Current cart items                 |
-| `wishlist`       | `WishlistItem[]`  | Current wishlist items             |
-| `cartCount`      | `number`          | Total item quantity in cart        |
-| `wishlistCount`  | `number`          | Number of wishlisted items         |
-| `addToCart`      | `(item) => void`  | Add or increment item in cart      |
-| `removeFromCart` | `(id) => void`    | Remove item from cart              |
-| `toggleWishlist` | `(item) => void`  | Add or remove from wishlist        |
-| `isInCart`       | `(id) => boolean` | Check if item is already in cart   |
-| `isWishlisted`   | `(id) => boolean` | Check if item is in wishlist       |
-
----
-
-**File**: `src/Function/AnimationOne.tsx`
-
-Scroll-triggered entrance animation using Framer Motion `useInView`.  
-Wraps children in a slide-from-left fade-in effect.
-
-```tsx
-<AnimationOne>
-  <section>Your content here</section>
-</AnimationOne>
-```
-
----
-
-## Adding a New Component
-
-```tsx
-// src/components/MyComponent.tsx
-import { Button, Typography } from "antd";
-import "../styles/mycomponent.css";     // ← create this file
-
-const { Title } = Typography;
-
-export default function MyComponent() {
-  return (
-    <div className="my-component">
-      <Title level={2}>Hello</Title>
-      <Button type="primary" className="my-btn">Click me</Button>
-    </div>
-  );
-}
-```
-
-Then in `src/styles/mycomponent.css`:
-```css
-/* ===================================================
-   mycomponent.css  —  MyComponent Styles
-   CuteCard
-   =================================================== */
-
-.my-component { /* ... */ }
-
-.my-btn.ant-btn { /* Ant Design override */ }
-```
-
-And add `@import "./mycomponent.css";` to `common.css`.

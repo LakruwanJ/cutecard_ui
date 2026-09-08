@@ -49,17 +49,27 @@ npm run dev
 
 ---
 
-## State Management
+## State Management & Authentication
 
-| Context         | File                          | Purpose                              |
-|-----------------|-------------------------------|--------------------------------------|
-| `ShopContext`   | `src/Function/ShopContext.tsx`| Global cart + wishlist state         |
+| Context         | File                          | Purpose                                           |
+|-----------------|-------------------------------|---------------------------------------------------|
+| `AuthContext`   | `src/Function/AuthContext.tsx`| Global auth, session, registration & profile state|
+| `ShopContext`   | `src/Function/ShopContext.tsx`| Global cart + wishlist state                      |
 
-- **`useShop()`** — hook to access cart/wishlist from any component
-- **Cart**: `addToCart`, `removeFromCart`, `isInCart`, `cartCount`
-- **Wishlist**: `toggleWishlist`, `isWishlisted`, `wishlistCount`
-- Wrapped around `<App />` in `main.tsx` via `<ShopProvider>`
-- Uses Ant Design `message` for toast feedback on add/remove
+### Authentication (`AuthContext`)
+- **Persistence**: Uses `localStorage` (`cutecard_current_user` and `cutecard_registered_users`).
+- **Hook**: `useAuth()`
+  - `currentUser`, `isAdmin`, `isAuthenticated`
+  - `login(username, password)`
+  - `register(data)`
+  - `logout()`
+  - `updateProfile(data)`
+  - `requireAuth(action, reason)`: Runs action if logged in; opens `<AuthModal />` with `reason` if guest, then executes action post-login.
+  - `openAuthModal(tab?, reason?)`, `closeAuthModal()`
+
+### Pre-seeded Test Accounts
+- **Customer**: `user` / `123q` (Sanduni Perera, Colombo)
+- **Admin**: `admin` / `123q` (CuteCard Admin, HQ)
 
 ---
 
@@ -78,11 +88,12 @@ src/components/       → React components (PascalCase filenames)
 src/styles/           → CSS modules (one file per concern)
 src/Function/         → Utility components, animations, contexts
   └── AnimationOne.tsx   Scroll-triggered fade-in
+  └── AuthContext.tsx    Auth & user profile state
   └── ShopContext.tsx    Cart & wishlist global state
 src/Images/           → Static SVGs and images
   └── Wave.svg           DO NOT modify — top background animation
   └── HeroIllustration.svg  Hero section SVG art (hidden on mobile)
-src/data/             → Static data arrays, types (future: API types)
+src/data/             → Static data arrays, types
 docs/instructions/    → Developer documentation
 ```
 
@@ -100,13 +111,3 @@ npm run deploy
 ```
 
 Ensure `wrangler.jsonc` has the correct `account_id` and `project_name` set.
-
----
-
-## Adding a New Page
-
-1. Create `src/components/PageName.tsx`
-2. Create matching `src/styles/pagename.css`
-3. Import the CSS file at the top of the component
-4. Add a `<Route>` in `src/App.tsx`
-5. Add a link in `src/components/Navbar.tsx`

@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Function/AuthContext";
 
 export default function NavbarA() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="navbar">
@@ -17,22 +25,21 @@ export default function NavbarA() {
             className="navbar-brand"
             aria-label="CuteCard admin dashboard"
           >
-            <svg
-              width="300"
-              height="300"
-              viewBox="0 0 300 300"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="150"
-                cy="150"
-                r="150"
-                fill="#3B1E54"
-              />
-            </svg>
+            <div className="navbar-brand-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.314 3.87 1
+                     6.498 1 8.533 1 10.515 2.395 12 4c1.485-1.605 3.467-3
+                     5.502-3C20.13 1 23 3.314 23 7.19c0 4.105-5.37 8.863-11 14.402z"
+                  fill="white"
+                />
+              </svg>
+            </div>
 
-            <span>Brand</span>
+            <div className="navbar-brand-text">
+              <span className="navbar-brand-name">CuteCard</span>
+              <span className="navbar-brand-sub">Admin Panel</span>
+            </div>
           </Link>
 
           <button
@@ -95,6 +102,7 @@ export default function NavbarA() {
             <Button
               type="primary"
               className="navbar-contact-button"
+              onClick={handleLogout}
             >
               Log Out
             </Button>

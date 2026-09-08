@@ -1,0 +1,230 @@
+/* ===================================================
+   authmodal.css  —  Authentication Modal Styles
+   CuteCard | Login, Register & Guest Prompts
+   =================================================== */
+
+.cc-auth-modal .ant-modal-content {
+  border-radius: var(--cc-radius-lg) !important;
+  overflow: hidden;
+  padding: 0 !important;
+  box-shadow: 0 20px 60px rgba(59, 30, 84, 0.22) !important;
+  border: 1.5px solid rgba(239, 182, 200, 0.35);
+}
+
+.cc-auth-modal .ant-modal-close {
+  top: 18px;
+  right: 18px;
+  color: var(--cc-primary);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transition: all 0.2s ease;
+}
+
+.cc-auth-modal .ant-modal-close:hover {
+  background: var(--cc-accent-warm);
+  color: var(--cc-primary);
+  transform: rotate(90deg);
+}
+
+/* ── Top Header Banner ── */
+.cc-auth-header {
+  background: linear-gradient(135deg, rgba(59, 30, 84, 0.05) 0%, rgba(239, 182, 200, 0.18) 100%);
+  padding: 28px 28px 18px;
+  text-align: center;
+  border-bottom: 1px solid rgba(59, 30, 84, 0.08);
+}
+
+.cc-auth-icon-badge {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
+  border-radius: 16px;
+  background: var(--cc-grad-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(59, 30, 84, 0.25);
+  animation: cc-float 3s ease-in-out infinite;
+}
+
+.cc-auth-title {
+  font-family: var(--cc-font-head) !important;
+  color: var(--cc-primary) !important;
+  margin: 0 0 4px !important;
+  font-size: 1.5rem !important;
+}
+
+.cc-auth-subtitle {
+  color: var(--cc-text-mid);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* Reason banner when triggered by guest action (e.g. Add to Cart) */
+.cc-auth-reason-alert {
+  margin: 12px auto 0;
+  padding: 9px 14px;
+  background: #fff;
+  border: 1.5px solid var(--cc-accent);
+  border-radius: var(--cc-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cc-primary);
+  box-shadow: 0 4px 12px rgba(239, 182, 200, 0.35);
+  animation: cc-fade-up 0.3s ease;
+}
+
+/* ── Modal Body ── */
+.cc-auth-body {
+  padding: 20px 28px 28px;
+}
+
+/* Tabs styling */
+.cc-auth-tabs .ant-tabs-nav {
+  margin-bottom: 20px !important;
+}
+
+.cc-auth-tabs .ant-tabs-tab {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--cc-text-light);
+  padding: 8px 16px !important;
+}
+
+.cc-auth-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--cc-primary) !important;
+  font-weight: 700;
+}
+
+.cc-auth-tabs .ant-tabs-ink-bar {
+  background: var(--cc-primary) !important;
+  height: 3px !important;
+  border-radius: 3px;
+}
+
+/* ── Demo Quick Fill Box ── */
+.cc-auth-demo-box {
+  background: #fbf7fc;
+  border: 1px dashed var(--cc-primary-soft);
+  border-radius: var(--cc-radius-md);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+}
+
+.cc-auth-demo-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cc-primary);
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-auth-demo-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cc-auth-demo-btn {
+  background: #ffffff;
+  border: 1px solid var(--cc-primary-soft);
+  border-radius: var(--cc-radius-pill);
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--cc-primary);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-auth-demo-btn:hover {
+  background: var(--cc-accent-warm);
+  border-color: var(--cc-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(59, 30, 84, 0.1);
+}
+
+/* ── Form Inputs ── */
+.cc-auth-form .ant-input,
+.cc-auth-form .ant-input-password {
+  border-radius: 12px !important;
+  padding: 9px 14px !important;
+  border-color: #ebdfee !important;
+  font-size: 0.92rem;
+}
+
+.cc-auth-form .ant-input:focus,
+.cc-auth-form .ant-input-password-focused {
+  border-color: var(--cc-primary-light) !important;
+  box-shadow: 0 0 0 3px rgba(107, 63, 160, 0.12) !important;
+}
+
+.cc-auth-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.cc-auth-form .ant-form-item-label > label {
+  font-weight: 600;
+  color: var(--cc-text-mid);
+  font-size: 0.86rem;
+}
+
+.cc-auth-submit-btn.ant-btn {
+  height: 44px !important;
+  border-radius: var(--cc-radius-pill) !important;
+  background: var(--cc-grad-primary) !important;
+  border: none !important;
+  font-size: 0.96rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px;
+  box-shadow: 0 6px 18px rgba(59, 30, 84, 0.25) !important;
+  transition: all 0.25s ease !important;
+}
+
+.cc-auth-submit-btn.ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(59, 30, 84, 0.35) !important;
+}
+
+.cc-auth-footer-prompt {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cc-text-light);
+  margin-top: 14px;
+}
+
+.cc-auth-footer-link {
+  color: var(--cc-primary);
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.cc-auth-footer-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .cc-auth-header {
+    padding: 22px 18px 14px;
+  }
+  .cc-auth-body {
+    padding: 16px 18px 22px;
+  }
+  .cc-auth-demo-chips {
+    flex-direction: column;
+  }
+}

@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useShop } from "../Function/ShopContext";
+import { useAuth } from "../Function/AuthContext";
 import "../styles/cards.css";
 
 const { Text, Title } = Typography;
@@ -59,6 +60,7 @@ export default function Card({
 }: CardProps) {
   const navigate = useNavigate();
   const { addToCart, toggleWishlist, isWishlisted, isInCart } = useShop();
+  const { requireAuth } = useAuth();
   const [selectedModalCard, setSelectedModalCard] = useState<GiftCard | null>(null);
   const [modalQty, setModalQty] = useState<number>(1);
 
@@ -115,12 +117,16 @@ export default function Card({
                       aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
                       aria-pressed={wishlisted}
                       onClick={() =>
-                        toggleWishlist({
-                          id: card.id,
-                          name: card.name,
-                          price: card.price,
-                          gifUrl: card.gifUrl,
-                        })
+                        requireAuth(
+                          () =>
+                            toggleWishlist({
+                              id: card.id,
+                              name: card.name,
+                              price: card.price,
+                              gifUrl: card.gifUrl,
+                            }),
+                          "Please sign in to save cards to your wishlist 💜"
+                        )
                       }
                     >
                       {wishlisted ? "❤️" : "🤍"}
@@ -167,12 +173,16 @@ export default function Card({
                       type="primary"
                       className={`gift-card-cart-btn${inCart ? " in-cart" : ""}`}
                       onClick={() =>
-                        addToCart({
-                          id: card.id,
-                          name: card.name,
-                          price: card.price,
-                          gifUrl: card.gifUrl,
-                        })
+                        requireAuth(
+                          () =>
+                            addToCart({
+                              id: card.id,
+                              name: card.name,
+                              price: card.price,
+                              gifUrl: card.gifUrl,
+                            }),
+                          "Please sign in to add items to your shopping bag 🛍️"
+                        )
                       }
                       aria-label={inCart ? "Update cart" : "Add to cart"}
                     >
@@ -301,12 +311,16 @@ export default function Card({
                         justifyContent: "center",
                       }}
                       onClick={() =>
-                        toggleWishlist({
-                          id: selectedModalCard.id,
-                          name: selectedModalCard.name,
-                          price: selectedModalCard.price,
-                          gifUrl: selectedModalCard.gifUrl,
-                        })
+                        requireAuth(
+                          () =>
+                            toggleWishlist({
+                              id: selectedModalCard.id,
+                              name: selectedModalCard.name,
+                              price: selectedModalCard.price,
+                              gifUrl: selectedModalCard.gifUrl,
+                            }),
+                          "Please sign in to save cards to your wishlist 💜"
+                        )
                       }
                     >
                       {isWishlisted(selectedModalCard.id) ? "❤️" : "🤍"}
@@ -378,16 +392,21 @@ export default function Card({
                       fontWeight: 700,
                     }}
                     onClick={() => {
-                      addToCart(
-                        {
-                          id: selectedModalCard.id,
-                          name: selectedModalCard.name,
-                          price: selectedModalCard.price,
-                          gifUrl: selectedModalCard.gifUrl,
+                      requireAuth(
+                        () => {
+                          addToCart(
+                            {
+                              id: selectedModalCard.id,
+                              name: selectedModalCard.name,
+                              price: selectedModalCard.price,
+                              gifUrl: selectedModalCard.gifUrl,
+                            },
+                            modalQty
+                          );
+                          setSelectedModalCard(null);
                         },
-                        modalQty
+                        "Please sign in to add items to your shopping bag 🛍️"
                       );
-                      setSelectedModalCard(null);
                     }}
                   >
                     Add {modalQty > 1 ? `${modalQty} to Bag` : "to Bag"} 🛒

@@ -18,6 +18,8 @@ import WishlistPage from "./components/WishlistPage";
 import OrderPage from "./components/OrderPage";
 import CustomOrderPage from "./components/CustomOrderPage";
 import ContactPage from "./components/ContactPage";
+import ProfilePage from "./components/ProfilePage";
+import AuthModal from "./components/AuthModal";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,6 +35,7 @@ function UserLayout() {
   return (
     <>
       <Navbar />
+      <AuthModal />
 
       <BackgroundWrapper>
         <Routes>
@@ -42,6 +45,7 @@ function UserLayout() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/customorder" element={<CustomOrderPage />} />
           <Route path="/corder" element={<CustomOrderPage />} />
           <Route path="/contact" element={<ContactPage />} />
