@@ -1,0 +1,301 @@
+/* ===================================================
+   cardspage.css  —  Cards Catalogue Page Styles
+   CuteCard | http://localhost:5173/cards
+   =================================================== */
+
+.cards-catalog-page {
+  width: 100%;
+  max-width: var(--cc-max-width);
+  margin: 0 auto;
+  padding: 36px var(--cc-content-padding) 80px;
+}
+
+/* ── Hero Banner ── */
+.cards-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  padding: 24px 16px 12px;
+}
+
+.cards-header::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(239, 182, 200, 0.35) 0%, rgba(168, 136, 181, 0) 70%);
+  z-index: -1;
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.cards-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--cc-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: var(--cc-radius-pill);
+  border: 1px solid rgba(239, 182, 200, 0.8);
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(59, 30, 84, 0.06);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cards-header-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #52c41a;
+  box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.25);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(82, 196, 26, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(82, 196, 26, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(82, 196, 26, 0);
+  }
+}
+
+.cards-header-title.ant-typography {
+  font-family: var(--cc-font-head);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  color: var(--cc-primary);
+  margin-bottom: 12px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.cards-header-subtitle.ant-typography {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: #5c4e6a;
+  max-width: 680px;
+  margin: 0 auto 20px;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.cards-header-stats {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(239, 182, 200, 0.5);
+  border-radius: var(--cc-radius-pill);
+  padding: 8px 24px;
+  font-size: 0.88rem;
+  color: var(--cc-primary);
+  box-shadow: 0 2px 10px rgba(59, 30, 84, 0.04);
+}
+
+.cards-header-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+/* ── Filter Bar ── */
+.cards-filter-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(239, 182, 200, 0.55);
+  border-radius: var(--cc-radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 12px 36px rgba(59, 30, 84, 0.06);
+  transition: box-shadow var(--cc-trans-base);
+}
+
+.cards-filter-panel:hover {
+  box-shadow: 0 16px 44px rgba(59, 30, 84, 0.09);
+}
+
+.cards-search-input.ant-input-affix-wrapper {
+  border-radius: var(--cc-radius-pill) !important;
+  border: 1.5px solid #dfd4e6 !important;
+  padding: 10px 20px !important;
+  font-size: var(--cc-font-base);
+  background: #fdfafd !important;
+  transition: all var(--cc-trans-fast) !important;
+}
+
+.cards-search-input.ant-input-affix-wrapper:hover,
+.cards-search-input.ant-input-affix-wrapper-focused {
+  border-color: var(--cc-primary-light) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(107, 63, 160, 0.14) !important;
+}
+
+.cards-search-input .ant-input {
+  background: transparent !important;
+  font-family: var(--cc-font-ui);
+}
+
+.cards-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(239, 182, 200, 0.35);
+}
+
+.cards-cat-pill {
+  padding: 8px 18px;
+  border-radius: var(--cc-radius-pill);
+  border: 1.5px solid #e7d8ec;
+  background: #ffffff;
+  color: var(--cc-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(59, 30, 84, 0.04);
+}
+
+.cards-cat-pill:hover {
+  background: var(--cc-accent-warm);
+  border-color: var(--cc-accent);
+  color: var(--cc-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(59, 30, 84, 0.1);
+}
+
+.cards-cat-pill.active {
+  background: var(--cc-grad-primary);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(59, 30, 84, 0.28);
+  transform: translateY(-1px);
+}
+
+/* ── Sort & Meta ── */
+.cards-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 0 6px;
+}
+
+.cards-count-text.ant-typography {
+  color: #554862;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.cards-count-text strong {
+  color: var(--cc-primary);
+  font-weight: 700;
+}
+
+.cards-sort-select.ant-select {
+  min-width: 190px;
+}
+
+.cards-sort-select .ant-select-selector {
+  border-radius: var(--cc-radius-pill) !important;
+  border: 1.5px solid #dfd4e6 !important;
+  padding: 4px 16px !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(59, 30, 84, 0.04) !important;
+}
+
+.cards-sort-select:hover .ant-select-selector,
+.cards-sort-select.ant-select-focused .ant-select-selector {
+  border-color: var(--cc-primary-light) !important;
+  box-shadow: 0 0 0 2px rgba(107, 63, 160, 0.14) !important;
+}
+
+/* ── Empty State ── */
+.cards-empty-container {
+  padding: 64px 28px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--cc-radius-lg);
+  border: 2px dashed rgba(239, 182, 200, 0.7);
+  text-align: center;
+  margin: 32px 0;
+  box-shadow: 0 10px 30px rgba(59, 30, 84, 0.04);
+}
+
+.cards-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: floatEmoji 3s ease-in-out infinite;
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.cards-empty-title {
+  color: var(--cc-primary);
+  font-family: var(--cc-font-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+  .cards-catalog-page {
+    padding-top: 16px;
+    padding-bottom: 48px;
+  }
+
+  .cards-header {
+    margin-bottom: 24px;
+    padding: 12px 8px;
+  }
+
+  .cards-header-stats {
+    gap: 12px;
+    font-size: 0.8rem;
+    padding: 6px 16px;
+  }
+
+  .cards-filter-panel {
+    padding: 18px 16px;
+    border-radius: var(--cc-radius-md);
+  }
+
+  .cards-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .cards-category-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+  }
+
+  .cards-cat-pill {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
+}

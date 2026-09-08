@@ -1,15 +1,15 @@
 import { Col, Row, Typography } from "antd";
+import { Link } from "react-router-dom";
 import "../styles/footer.css";
 
 const { Title, Paragraph } = Typography;
 
 const quickLinks = [
-  { href: "/",       label: "Home" },
-  { href: "/cards",  label: "Shop Cards" },
-  { href: "/corder", label: "Custom Order" },
-  { href: "/order",  label: "My Orders" },
-  { href: "/about",  label: "About Us" },
-  { href: "/faq",    label: "FAQs" },
+  { href: "/",        label: "Home" },
+  { href: "/cards",   label: "Shop Cards" },
+  { href: "/corder",  label: "Custom Order" },
+  { href: "/order",   label: "My Orders" },
+  { href: "/contact", label: "Contact & FAQs" },
 ];
 
 const socialLinks = [
@@ -51,7 +51,7 @@ export default function Footer() {
             <Title level={5} className="footer-section-title">Quick Links</Title>
             <nav className="footer-links" aria-label="Footer navigation">
               {quickLinks.map(({ href, label }) => (
-                <a key={href} href={href}>{label}</a>
+                <Link key={href} to={href}>{label}</Link>
               ))}
             </nav>
           </Col>

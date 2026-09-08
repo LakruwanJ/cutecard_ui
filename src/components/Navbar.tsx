@@ -51,10 +51,11 @@ export default function Navbar() {
           {/* ── Nav links ── */}
           <ul className={`navbar-links${isOpen ? " navbar-links-open" : ""}`}>
             {[
-              { to: "/",       label: "Home" },
-              { to: "/cards",  label: "Cards" },
-              { to: "/order",  label: "Order" },
-              { to: "/corder", label: "Custom Order" },
+              { to: "/",        label: "Home" },
+              { to: "/cards",   label: "Cards" },
+              { to: "/order",   label: "Order" },
+              { to: "/corder",  label: "Custom Order" },
+              { to: "/contact", label: "Contact" },
             ].map(({ to, label }) => (
               <li key={to}>
                 <Link to={to} className={isActive(to)} onClick={close}>
