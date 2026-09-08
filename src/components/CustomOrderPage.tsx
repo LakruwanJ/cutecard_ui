@@ -105,7 +105,7 @@ export default function CustomOrderPage() {
   const shippingFee = 2.5; // Island-wide standard
   const estimatedTotal = basePrice + addonsTotal + shippingFee;
 
-  const onFinish = (_values: Record<string, unknown>) => {
+  const onFinish = () => {
     const randomRef = `CC-${Math.floor(1000 + Math.random() * 9000)}`;
     setSubmittedOrderId(randomRef);
     setIsModalOpen(true);

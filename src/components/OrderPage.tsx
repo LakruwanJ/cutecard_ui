@@ -11,6 +11,7 @@ import {
   Typography,
 } from "antd";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Function/AuthContext";
 import AnimationOne from "../Function/AnimationOne";
 import "../styles/orderpage.css";
 
@@ -101,10 +102,17 @@ const mockOrders: OrderRecord[] = [
     items: [
       {
         id: "2",
-        name: "Vintage Botanical Love",
-        qty: 2,
-        price: 9.99,
-        img: "https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif",
+        name: "Vintage Botanical Pocket Card",
+        qty: 1,
+        price: 12.99,
+        img: "https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif",
+      },
+      {
+        id: "3",
+        name: "Starlight Birthday Box",
+        qty: 1,
+        price: 12.99,
+        img: "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif",
       },
     ],
   },
@@ -119,6 +127,7 @@ const trackingSteps = [
 ];
 
 export default function OrderPage() {
+  const { currentUser, openAuthModal } = useAuth();
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchKey, setSearchKey] = useState<string>("CC-8924");
   const [activeTrackedOrder, setActiveTrackedOrder] = useState<OrderRecord | null>(
@@ -127,6 +136,52 @@ export default function OrderPage() {
   const [invoiceModalOrder, setInvoiceModalOrder] = useState<OrderRecord | null>(
     null
   );
+
+  if (!currentUser) {
+    return (
+      <AnimationOne>
+        <div className="order-page" style={{ textAlign: "center", padding: "130px 20px 80px" }}>
+          <div className="order-badge">🔒 Members Only</div>
+          <Title level={2} className="order-title">
+            Sign In to Track Your Orders
+          </Title>
+          <Paragraph className="order-subtitle" style={{ maxWidth: 480, margin: "0 auto 28px" }}>
+            Live courier tracking, order progress, and invoices are exclusively available for registered customers. Please sign in or create an account to view your orders.
+          </Paragraph>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+            <Button
+              type="primary"
+              size="large"
+              style={{
+                borderRadius: "var(--cc-radius-pill)",
+                background: "var(--cc-grad-primary)",
+                border: "none",
+                padding: "0 32px",
+                fontWeight: 700,
+              }}
+              onClick={() => openAuthModal("login", "Please sign in to view and track your orders 📦")}
+            >
+              Sign In to CuteCard 💌
+            </Button>
+            <Link to="/cards">
+              <Button
+                size="large"
+                style={{
+                  borderRadius: "var(--cc-radius-pill)",
+                  padding: "0 28px",
+                  borderColor: "var(--cc-primary-soft)",
+                  color: "var(--cc-primary)",
+                  fontWeight: 600,
+                }}
+              >
+                Explore Cards
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </AnimationOne>
+    );
+  }
 
   const handleSearch = (val: string) => {
     const trimmed = val.trim().toUpperCase();
@@ -156,7 +211,7 @@ export default function OrderPage() {
             Track & Manage Your Orders
           </Title>
           <Paragraph className="order-subtitle">
-            Follow your handcrafted creation from our artisan table to your
+            Welcome back, <strong>{currentUser.name}</strong>! Follow your handcrafted creation from our artisan table to your
             doorstep anywhere in Sri Lanka.
           </Paragraph>
         </div>

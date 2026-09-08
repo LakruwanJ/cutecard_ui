@@ -26,7 +26,7 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketRef, setTicketRef] = useState<string | null>(null);
 
-  const onFinish = (_values: Record<string, unknown>) => {
+  const onFinish = () => {
     const ref = `REQ-${Math.floor(1000 + Math.random() * 9000)}`;
     setTicketRef(ref);
     setIsSubmitted(true);

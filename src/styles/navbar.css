@@ -272,3 +272,49 @@
     display: none;
   }
 }
+
+/* ── Auth Buttons & User Avatar ── */
+.navbar-auth-btn.ant-btn {
+  height: 36px !important;
+  border-radius: var(--cc-radius-pill) !important;
+  border: 1.5px solid var(--cc-primary) !important;
+  color: var(--cc-primary) !important;
+  font-weight: 700 !important;
+  font-size: 0.86rem !important;
+  padding: 0 16px !important;
+  background: transparent !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.navbar-auth-btn.ant-btn:hover {
+  background: var(--cc-accent-warm) !important;
+  border-color: var(--cc-primary-light) !important;
+  transform: translateY(-1px);
+}
+
+.navbar-avatar-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--cc-grad-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  border: 2px solid var(--cc-accent-warm);
+  box-shadow: 0 3px 10px rgba(59, 30, 84, 0.18);
+  transition: all 0.2s ease;
+  padding: 0;
+  outline: none;
+}
+
+.navbar-avatar-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(59, 30, 84, 0.26);
+}

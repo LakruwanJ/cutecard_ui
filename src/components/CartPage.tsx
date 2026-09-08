@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Col,
@@ -18,6 +18,7 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import { useShop } from "../Function/ShopContext";
+import { useAuth } from "../Function/AuthContext";
 import AnimationOne from "../Function/AnimationOne";
 import "../styles/cartpage.css";
 
@@ -43,12 +44,25 @@ const slDistricts = [
 
 export default function CartPage() {
   const { cart, updateQty, removeFromCart, clearCart, cartCount } = useShop();
+  const { currentUser, requireAuth } = useAuth();
   const [promoCode, setPromoCode] = useState("");
   const [discountPercent, setDiscountPercent] = useState(0);
   const [appliedCode, setAppliedCode] = useState("");
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [checkoutDoneOrder, setCheckoutDoneOrder] = useState<string | null>(null);
   const [checkoutForm] = Form.useForm();
+
+  // Prefill checkout form with customer profile details if logged in
+  useEffect(() => {
+    if (isCheckoutOpen && currentUser) {
+      checkoutForm.setFieldsValue({
+        name: currentUser.name || "",
+        phone: currentUser.phone || "",
+        address: currentUser.address || "",
+        district: currentUser.city || "Colombo",
+      });
+    }
+  }, [isCheckoutOpen, currentUser, checkoutForm]);
 
   // Calculations
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -80,7 +94,7 @@ export default function CartPage() {
     message.info("Promo code removed");
   };
 
-  const handleCompleteCheckout = (_values: Record<string, unknown>) => {
+  const handleCompleteCheckout = () => {
     const orderRef = `CC-${Math.floor(1000 + Math.random() * 9000)}`;
     setCheckoutDoneOrder(orderRef);
     clearCart();
@@ -454,7 +468,12 @@ export default function CartPage() {
                   type="primary"
                   block
                   className="cart-checkout-btn"
-                  onClick={() => setIsCheckoutOpen(true)}
+                  onClick={() =>
+                    requireAuth(
+                      () => setIsCheckoutOpen(true),
+                      "Please sign in to complete checkout and place your order 💌"
+                    )
+                  }
                 >
                   Proceed to Checkout →
                 </Button>

@@ -10,6 +10,7 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import { useShop } from "../Function/ShopContext";
+import { useAuth } from "../Function/AuthContext";
 import AnimationOne from "../Function/AnimationOne";
 import "../styles/wishlist.css";
 
@@ -24,12 +25,15 @@ export default function WishlistPage() {
     isInCart,
     wishlistCount,
   } = useShop();
+  const { requireAuth } = useAuth();
 
   const handleMoveAllToCart = () => {
-    wishlist.forEach((item) => {
-      addToCart(item);
-    });
-    message.success(`Moved all ${wishlist.length} saved items to your cart! 🛒`);
+    requireAuth(() => {
+      wishlist.forEach((item) => {
+        addToCart(item);
+      });
+      message.success(`Moved all ${wishlist.length} saved items to your cart! 🛒`);
+    }, "Please sign in to add items to your shopping bag 🛍️");
   };
 
   return (
@@ -150,7 +154,12 @@ export default function WishlistPage() {
                           <Button
                             type="primary"
                             className="wishlist-add-btn"
-                            onClick={() => addToCart(item)}
+                            onClick={() =>
+                              requireAuth(
+                                () => addToCart(item),
+                                "Please sign in to add items to your shopping bag 🛍️"
+                              )
+                            }
                             disabled={inCart}
                             style={{
                               background: inCart
