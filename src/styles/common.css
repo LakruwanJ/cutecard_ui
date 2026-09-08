@@ -9,4 +9,10 @@
 @import "./navbar.css";
 @import "./home.css";
 @import "./cards.css";
+@import "./cardspage.css";
+@import "./cartpage.css";
+@import "./orderpage.css";
+@import "./wishlist.css";
+@import "./customorder.css";
+@import "./contactpage.css";
 @import "./footer.css";

@@ -22,9 +22,12 @@ interface ShopContextValue {
   wishlist: WishlistItem[];
   cartCount: number;
   wishlistCount: number;
-  addToCart: (item: Omit<CartItem, "qty">) => void;
+  addToCart: (item: Omit<CartItem, "qty">, qty?: number) => void;
+  updateQty: (id: string, qty: number) => void;
   removeFromCart: (id: string) => void;
+  clearCart: () => void;
   toggleWishlist: (item: WishlistItem) => void;
+  clearWishlist: () => void;
   isWishlisted: (id: string) => boolean;
   isInCart: (id: string) => boolean;
 }
@@ -38,24 +41,41 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [messageApi, contextHolder] = message.useMessage();
 
   const addToCart = useCallback(
-    (item: Omit<CartItem, "qty">) => {
+    (item: Omit<CartItem, "qty">, qty: number = 1) => {
       setCart((prev) => {
         const existing = prev.find((c) => c.id === item.id);
         if (existing) {
-          messageApi.info(`${item.name} quantity updated`);
+          messageApi.info(`${item.name} quantity updated (+${qty})`);
           return prev.map((c) =>
-            c.id === item.id ? { ...c, qty: c.qty + 1 } : c
+            c.id === item.id ? { ...c, qty: c.qty + qty } : c
           );
         }
         messageApi.success(`${item.name} added to cart 🛒`);
-        return [...prev, { ...item, qty: 1 }];
+        return [...prev, { ...item, qty }];
       });
     },
     [messageApi]
   );
 
-  const removeFromCart = useCallback((id: string) => {
-    setCart((prev) => prev.filter((c) => c.id !== id));
+  const updateQty = useCallback((id: string, qty: number) => {
+    setCart((prev) => {
+      if (qty <= 0) {
+        return prev.filter((c) => c.id !== id);
+      }
+      return prev.map((c) => (c.id === id ? { ...c, qty } : c));
+    });
+  }, []);
+
+  const removeFromCart = useCallback(
+    (id: string) => {
+      setCart((prev) => prev.filter((c) => c.id !== id));
+      messageApi.info("Item removed from cart");
+    },
+    [messageApi]
+  );
+
+  const clearCart = useCallback(() => {
+    setCart([]);
   }, []);
 
   const toggleWishlist = useCallback(
@@ -72,6 +92,10 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     },
     [messageApi]
   );
+
+  const clearWishlist = useCallback(() => {
+    setWishlist([]);
+  }, []);
 
   const isWishlisted = useCallback(
     (id: string) => wishlist.some((w) => w.id === id),
@@ -91,8 +115,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         cartCount: cart.reduce((sum, c) => sum + c.qty, 0),
         wishlistCount: wishlist.length,
         addToCart,
+        updateQty,
         removeFromCart,
+        clearCart,
         toggleWishlist,
+        clearWishlist,
         isWishlisted,
         isInCart,
       }}

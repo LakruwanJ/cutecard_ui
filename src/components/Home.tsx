@@ -18,14 +18,12 @@ const features = [
 ];
 
 const categories = [
-  { emoji: "🎂", name: "Birthday",    count: "24 cards" },
-  { emoji: "💍", name: "Wedding",     count: "18 cards" },
-  { emoji: "💝", name: "Valentine's", count: "15 cards" },
-  { emoji: "🎄", name: "Christmas",   count: "20 cards" },
-  { emoji: "🎓", name: "Graduation",  count: "12 cards" },
-  { emoji: "🌷", name: "Thank You",   count: "16 cards" },
-  { emoji: "👶", name: "New Baby",    count: "10 cards" },
-  { emoji: "✨", name: "All Occasions", count: "95+ cards" },
+  { emoji: "🎂", name: "Birthday",           count: "24 cards", category: "Birthday" },
+  { emoji: "💍", name: "Wedding",            count: "18 cards", category: "Wedding" },
+  { emoji: "💝", name: "Love & Anniversary", count: "15 cards", category: "Love & Anniversary" },
+  { emoji: "✨", name: "Pop-up 3D",          count: "12 cards", category: "Pop-up 3D" },
+  { emoji: "🌷", name: "Thank You",          count: "16 cards", category: "Thank You" },
+  { emoji: "🌟", name: "All Occasions",      count: "95+ cards", category: "All" },
 ];
 
 export default function Home() {
@@ -162,7 +160,11 @@ export default function Home() {
 
           <div className="categories-scroll">
             {categories.map((cat) => (
-              <Link to="/cards" className="category-pill" key={cat.name}>
+              <Link
+                to={cat.category === "All" ? "/cards" : `/cards?category=${encodeURIComponent(cat.category)}`}
+                className="category-pill"
+                key={cat.name}
+              >
                 <span className="category-emoji">{cat.emoji}</span>
                 <span className="category-name">{cat.name}</span>
                 <span className="category-count">{cat.count}</span>
